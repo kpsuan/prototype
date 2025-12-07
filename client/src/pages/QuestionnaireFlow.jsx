@@ -30,6 +30,8 @@ const FLOW_PHASES = {
   SUMMARY: 'summary',
   TEAM_VISIBILITY: 'team_visibility',
   RECORD_VIDEO: 'record_video',
+  RECORD_AUDIO: 'record_audio',
+  RECORD_TEXT: 'record_text',
   RECORDING_COMPLETE: 'recording_complete',
   TEAM_RECORDINGS: 'team_recordings',
   MEMBER_FULL_SUMMARY: 'member_full_summary',
@@ -656,11 +658,11 @@ const QuestionnaireFlow = () => {
       <TeamVisibilitySuccess
         userName="Norman"
         userAvatar="https://i.pravatar.cc/280?img=12"
-        onSkip={() => setCurrentPhase(FLOW_PHASES.TEAM_RECORDINGS)}
+        onSkip={() => setCurrentPhase(FLOW_PHASES.SUMMARY)}
         onBackHome={() => setCurrentPhase(FLOW_PHASES.MAIN)}
         onRecordVideo={() => setCurrentPhase(FLOW_PHASES.RECORD_VIDEO)}
-        onRecordAudio={() => console.log('Record audio')}
-        onEnterText={() => console.log('Enter text')}
+        onRecordAudio={() => setCurrentPhase(FLOW_PHASES.RECORD_AUDIO)}
+        onEnterText={() => setCurrentPhase(FLOW_PHASES.RECORD_TEXT)}
       />
     );
   }
@@ -669,10 +671,37 @@ const QuestionnaireFlow = () => {
   if (currentPhase === FLOW_PHASES.RECORD_VIDEO) {
     return (
       <RecordVideo
+        initialMode="video"
         onBack={() => setCurrentPhase(FLOW_PHASES.TEAM_VISIBILITY)}
         onComplete={() => setCurrentPhase(FLOW_PHASES.RECORDING_COMPLETE)}
-        onSwitchToText={() => console.log('Switch to text')}
-        onSwitchToAudio={() => console.log('Switch to audio')}
+        onSwitchToText={() => setCurrentPhase(FLOW_PHASES.RECORD_TEXT)}
+        onSwitchToAudio={() => setCurrentPhase(FLOW_PHASES.RECORD_AUDIO)}
+      />
+    );
+  }
+
+  // Record Audio
+  if (currentPhase === FLOW_PHASES.RECORD_AUDIO) {
+    return (
+      <RecordVideo
+        initialMode="audio"
+        onBack={() => setCurrentPhase(FLOW_PHASES.TEAM_VISIBILITY)}
+        onComplete={() => setCurrentPhase(FLOW_PHASES.RECORDING_COMPLETE)}
+        onSwitchToText={() => setCurrentPhase(FLOW_PHASES.RECORD_TEXT)}
+        onSwitchToAudio={() => {}}
+      />
+    );
+  }
+
+  // Record Text
+  if (currentPhase === FLOW_PHASES.RECORD_TEXT) {
+    return (
+      <RecordVideo
+        initialMode="text"
+        onBack={() => setCurrentPhase(FLOW_PHASES.TEAM_VISIBILITY)}
+        onComplete={() => setCurrentPhase(FLOW_PHASES.RECORDING_COMPLETE)}
+        onSwitchToText={() => {}}
+        onSwitchToAudio={() => setCurrentPhase(FLOW_PHASES.RECORD_AUDIO)}
       />
     );
   }
@@ -682,7 +711,7 @@ const QuestionnaireFlow = () => {
     return (
       <RecordingComplete
         onReady={() => setCurrentPhase(FLOW_PHASES.TEAM_RECORDINGS)}
-        onSkip={() => setCurrentPhase(FLOW_PHASES.COMPLETE)}
+        onSkip={() => setCurrentPhase(FLOW_PHASES.SUMMARY)}
       />
     );
   }
@@ -694,8 +723,8 @@ const QuestionnaireFlow = () => {
         onBack={() => setCurrentPhase(FLOW_PHASES.RECORDING_COMPLETE)}
         onBackHome={() => setCurrentPhase(FLOW_PHASES.MAIN)}
         onRecordVideo={() => setCurrentPhase(FLOW_PHASES.RECORD_VIDEO)}
-        onRecordAudio={() => console.log('Record audio')}
-        onEnterText={() => console.log('Enter text')}
+        onRecordAudio={() => setCurrentPhase(FLOW_PHASES.RECORD_AUDIO)}
+        onEnterText={() => setCurrentPhase(FLOW_PHASES.RECORD_TEXT)}
         onSkip={() => setCurrentPhase(FLOW_PHASES.SUMMARY)}
         onViewFullReport={(member) => {
           setSelectedMemberForFullSummary(member);

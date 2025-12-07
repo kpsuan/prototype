@@ -101,13 +101,14 @@ const InstructionsModal = ({ isOpen, onClose }) => {
   );
 };
 
-const RecordVideo = ({ 
-  onBack, 
+const RecordVideo = ({
+  onBack,
   onComplete,
   onSwitchToText,
-  onSwitchToAudio
+  onSwitchToAudio,
+  initialMode = 'video'
 }) => {
-  const [activeMode, setActiveMode] = useState('video');
+  const [activeMode, setActiveMode] = useState(initialMode);
   const [recordingState, setRecordingState] = useState('idle'); // idle, recording, paused, reviewing
   const [hasPermission, setHasPermission] = useState(false);
   const [stream, setStream] = useState(null);
@@ -305,7 +306,18 @@ const RecordVideo = ({
 
   // Text mode state
   const [textContent, setTextContent] = useState('');
-  
+  const [textReviewing, setTextReviewing] = useState(false);
+  const [textDescription, setTextDescription] = useState('');
+
+  // Audio mode state
+  const [audioReviewing, setAudioReviewing] = useState(false);
+  const [audioDescription, setAudioDescription] = useState('');
+  const [audioBlobUrl, setAudioBlobUrl] = useState(null);
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  const audioRef = useRef(null);
+  const audioRecorderRef = useRef(null);
+  const audioChunksRef = useRef([]);
+
   // Description for recording (shown in team recordings)
   const [recordingDescription, setRecordingDescription] = useState('');
 
@@ -500,120 +512,372 @@ const RecordVideo = ({
     );
   };
 
-  // Render Text Mode Content
-  const renderTextMode = () => (
+  // Handle text submission to review mode
+  const handleTextConfirm = () => {
+    if (textContent.trim()) {
+      setTextReviewing(true);
+    }
+  };
+
+  // Handle text edit (go back from review)
+  const handleTextEdit = () => {
+    setTextReviewing(false);
+  };
+
+  // Handle text final submit
+  const handleTextSubmit = () => {
+    if (onComplete) {
+      onComplete({
+        type: 'text',
+        content: textContent,
+        description: textDescription.trim() || 'My written explanation'
+      });
+    }
+  };
+
+  // Render Text Review Mode
+  const renderTextReviewMode = () => (
     <div className="record-video__text-mode">
       <div className="record-video__text-container">
-        <h2 className="record-video__text-title">Reason for my Answers</h2>
-        <textarea
-          className="record-video__textarea"
-          placeholder="Share your thoughts here..."
-          value={textContent}
-          onChange={(e) => setTextContent(e.target.value)}
-        />
-        <div className="record-video__text-toolbar">
-          <div className="record-video__text-toolbar-group">
-            <button className="record-video__text-btn" title="Align left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M3 3h18v2H3V3zm0 4h12v2H3V7zm0 4h18v2H3v-2zm0 4h12v2H3v-2zm0 4h18v2H3v-2z"/>
-              </svg>
-            </button>
-            <button className="record-video__text-btn" title="Align center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M3 3h18v2H3V3zm3 4h12v2H6V7zm-3 4h18v2H3v-2zm3 4h12v2H6v-2zm-3 4h18v2H3v-2z"/>
-              </svg>
-            </button>
-            <button className="record-video__text-btn" title="Align right">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M3 3h18v2H3V3zm6 4h12v2H9V7zm-6 4h18v2H3v-2zm6 4h12v2H9v-2zm-6 4h18v2H3v-2z"/>
-              </svg>
-            </button>
+        <h2 className="record-video__text-title">Review Your Response</h2>
+        <div className="record-video__text-preview">
+          {textContent}
+        </div>
+
+        {/* Description Input */}
+        <div className="record-video__description-section record-video__description-section--text">
+          <label className="record-video__description-label">Add a short description</label>
+          <div className="record-video__description-input-wrapper">
+            <input
+              type="text"
+              className="record-video__description-input"
+              placeholder="E.g., My thoughts on quality of life..."
+              value={textDescription}
+              onChange={(e) => setTextDescription(e.target.value.slice(0, 150))}
+              maxLength={150}
+            />
+            <span className="record-video__description-count">{textDescription.length}/150</span>
           </div>
-          <div className="record-video__text-toolbar-group">
-            <button className="record-video__text-btn record-video__text-btn--font" title="Font size">A</button>
-            <button className="record-video__text-btn" title="Bold"><strong>B</strong></button>
-            <button className="record-video__text-btn" title="Italic"><em>I</em></button>
-            <button className="record-video__text-btn" title="List">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M3 4h2v2H3V4zm4 0h14v2H7V4zM3 10h2v2H3v-2zm4 0h14v2H7v-2zm-4 6h2v2H3v-2zm4 0h14v2H7v-2z"/>
-              </svg>
-            </button>
-          </div>
-          <button 
-            className="record-video__text-submit"
-            onClick={() => onComplete && onComplete({ type: 'text', content: textContent })}
-            disabled={!textContent.trim()}
+        </div>
+
+        {/* Review Controls */}
+        <div className="record-video__review-controls record-video__review-controls--text">
+          <button
+            className="record-video__review-btn record-video__review-btn--rerecord"
+            onClick={handleTextEdit}
+          >
+            <ReRecordIcon />
+            <span>Edit</span>
+          </button>
+          <button
+            className="record-video__review-btn record-video__review-btn--submit"
+            onClick={handleTextSubmit}
           >
             <CheckIcon />
+            <span>Use this text</span>
           </button>
         </div>
       </div>
     </div>
   );
 
-  // Render Audio Mode Content
-  const renderAudioMode = () => (
-    <div className="record-video__audio-mode">
-      {/* Audio Visualization */}
-      <div className="record-video__audio-visualizer">
-        <div className="record-video__audio-wave">
-          {[...Array(20)].map((_, i) => (
-            <span 
-              key={i} 
-              className={`record-video__audio-bar ${isRecording ? 'active' : ''}`}
-              style={{ 
-                animationDelay: `${i * 0.05}s`,
-                height: isRecording ? `${Math.random() * 60 + 20}%` : '20%'
-              }}
-            />
-          ))}
-        </div>
-      </div>
+  // Render Text Mode Content
+  const renderTextMode = () => {
+    // Show review mode if reviewing
+    if (textReviewing && textContent.trim()) {
+      return renderTextReviewMode();
+    }
 
-      {/* Recording Timer */}
-      {isActive && (
-        <div className="record-video__audio-timer">
-          <span className={`record-video__timer-dot ${isRecording ? 'recording' : ''}`} />
-          <span className="record-video__timer-text">{formatTime(recordedTime)}</span>
-        </div>
-      )}
-
-      {/* Audio Controls */}
-      <div className="record-video__audio-controls">
-        <div className="record-video__control-side record-video__control-left">
-          {isPaused && (
-            <button 
-              className="record-video__action-btn record-video__delete-btn"
-              onClick={handleDelete}
-              aria-label="Delete recording"
-            >
-              <DeleteIcon />
-            </button>
-          )}
-        </div>
-
-        <button 
-          className={`record-video__record-btn ${isRecording ? 'recording' : ''} ${isPaused ? 'paused' : ''}`}
-          onClick={handleRecord}
-          aria-label={isRecording ? 'Pause recording' : isPaused ? 'Resume recording' : 'Start recording'}
-        >
-          <span className="record-video__record-btn-inner" />
-        </button>
-
-        <div className="record-video__control-side record-video__control-right">
-          {isPaused && (
-            <button 
-              className="record-video__action-btn record-video__confirm-btn"
-              onClick={handleConfirm}
-              aria-label="Confirm recording"
+    return (
+      <div className="record-video__text-mode">
+        <div className="record-video__text-container">
+          <h2 className="record-video__text-title">Reason for my Answers</h2>
+          <textarea
+            className="record-video__textarea"
+            placeholder="Share your thoughts here..."
+            value={textContent}
+            onChange={(e) => setTextContent(e.target.value)}
+          />
+          <div className="record-video__text-toolbar">
+            <div className="record-video__text-toolbar-group">
+              <button className="record-video__text-btn" title="Align left">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M3 3h18v2H3V3zm0 4h12v2H3V7zm0 4h18v2H3v-2zm0 4h12v2H3v-2zm0 4h18v2H3v-2z"/>
+                </svg>
+              </button>
+              <button className="record-video__text-btn" title="Align center">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M3 3h18v2H3V3zm3 4h12v2H6V7zm-3 4h18v2H3v-2zm3 4h12v2H6v-2zm-3 4h18v2H3v-2z"/>
+                </svg>
+              </button>
+              <button className="record-video__text-btn" title="Align right">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M3 3h18v2H3V3zm6 4h12v2H9V7zm-6 4h18v2H3v-2zm6 4h12v2H9v-2zm-6 4h18v2H3v-2z"/>
+                </svg>
+              </button>
+            </div>
+            <div className="record-video__text-toolbar-group">
+              <button className="record-video__text-btn record-video__text-btn--font" title="Font size">A</button>
+              <button className="record-video__text-btn" title="Bold"><strong>B</strong></button>
+              <button className="record-video__text-btn" title="Italic"><em>I</em></button>
+              <button className="record-video__text-btn" title="List">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M3 4h2v2H3V4zm4 0h14v2H7V4zM3 10h2v2H3v-2zm4 0h14v2H7v-2zm-4 6h2v2H3v-2zm4 0h14v2H7v-2z"/>
+                </svg>
+              </button>
+            </div>
+            <button
+              className="record-video__text-submit"
+              onClick={handleTextConfirm}
+              disabled={!textContent.trim()}
             >
               <CheckIcon />
             </button>
-          )}
+          </div>
         </div>
+      </div>
+    );
+  };
+
+  // Start audio-only recording
+  const startAudioRecording = async () => {
+    try {
+      const audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      audioRecorderRef.current = new MediaRecorder(audioStream);
+      audioChunksRef.current = [];
+
+      audioRecorderRef.current.ondataavailable = (e) => {
+        if (e.data.size > 0) {
+          audioChunksRef.current.push(e.data);
+        }
+      };
+
+      audioRecorderRef.current.start();
+      setRecordingState('recording');
+      setRecordedTime(0);
+      startTimer();
+    } catch (err) {
+      console.error('Error accessing microphone:', err);
+    }
+  };
+
+  // Handle audio record button
+  const handleAudioRecord = () => {
+    if (recordingState === 'idle') {
+      startAudioRecording();
+    } else if (recordingState === 'recording') {
+      setRecordingState('paused');
+      stopTimer();
+      if (audioRecorderRef.current && audioRecorderRef.current.state === 'recording') {
+        audioRecorderRef.current.pause();
+      }
+    } else if (recordingState === 'paused') {
+      setRecordingState('recording');
+      startTimer();
+      if (audioRecorderRef.current && audioRecorderRef.current.state === 'paused') {
+        audioRecorderRef.current.resume();
+      }
+    }
+  };
+
+  // Handle audio delete
+  const handleAudioDelete = () => {
+    stopTimer();
+    setRecordingState('idle');
+    setRecordedTime(0);
+    audioChunksRef.current = [];
+    if (audioRecorderRef.current && audioRecorderRef.current.state !== 'inactive') {
+      audioRecorderRef.current.stop();
+    }
+  };
+
+  // Handle audio confirm (go to review)
+  const handleAudioConfirm = () => {
+    stopTimer();
+    if (audioRecorderRef.current && audioRecorderRef.current.state !== 'inactive') {
+      audioRecorderRef.current.onstop = () => {
+        const blob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+        const url = URL.createObjectURL(blob);
+        setAudioBlobUrl(url);
+        setAudioReviewing(true);
+        setRecordingState('idle');
+      };
+      audioRecorderRef.current.stop();
+    }
+  };
+
+  // Handle audio re-record
+  const handleAudioReRecord = () => {
+    if (audioBlobUrl) {
+      URL.revokeObjectURL(audioBlobUrl);
+      setAudioBlobUrl(null);
+    }
+    setIsAudioPlaying(false);
+    audioChunksRef.current = [];
+    setRecordedTime(0);
+    setAudioDescription('');
+    setAudioReviewing(false);
+  };
+
+  // Handle audio submit
+  const handleAudioSubmit = () => {
+    if (onComplete) {
+      onComplete({
+        type: 'audio',
+        chunks: audioChunksRef.current,
+        blobUrl: audioBlobUrl,
+        duration: recordedTime,
+        description: audioDescription.trim() || 'My audio explanation'
+      });
+    }
+  };
+
+  // Handle audio play/pause
+  const handleAudioPlayPause = () => {
+    if (audioRef.current) {
+      if (isAudioPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsAudioPlaying(!isAudioPlaying);
+    }
+  };
+
+  // Render Audio Review Mode
+  const renderAudioReviewMode = () => (
+    <div className="record-video__audio-mode record-video__audio-mode--review">
+      {/* Audio Player */}
+      <div className="record-video__audio-player">
+        <audio
+          ref={audioRef}
+          src={audioBlobUrl}
+          onEnded={() => setIsAudioPlaying(false)}
+        />
+        <button
+          className="record-video__audio-play-btn"
+          onClick={handleAudioPlayPause}
+          aria-label={isAudioPlaying ? 'Pause' : 'Play'}
+        >
+          {isAudioPlaying ? (
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+            </svg>
+          ) : (
+            <PlayIcon />
+          )}
+        </button>
+        <div className="record-video__audio-duration">
+          {formatTime(recordedTime)}
+        </div>
+      </div>
+
+      {/* Description Input */}
+      <div className="record-video__description-section record-video__description-section--audio">
+        <label className="record-video__description-label">Add a short description</label>
+        <div className="record-video__description-input-wrapper">
+          <input
+            type="text"
+            className="record-video__description-input"
+            placeholder="E.g., My thoughts on quality of life..."
+            value={audioDescription}
+            onChange={(e) => setAudioDescription(e.target.value.slice(0, 150))}
+            maxLength={150}
+          />
+          <span className="record-video__description-count">{audioDescription.length}/150</span>
+        </div>
+      </div>
+
+      {/* Review Controls */}
+      <div className="record-video__review-controls">
+        <button
+          className="record-video__review-btn record-video__review-btn--rerecord"
+          onClick={handleAudioReRecord}
+        >
+          <ReRecordIcon />
+          <span>Re-record</span>
+        </button>
+        <button
+          className="record-video__review-btn record-video__review-btn--submit"
+          onClick={handleAudioSubmit}
+        >
+          <CheckIcon />
+          <span>Use this audio</span>
+        </button>
       </div>
     </div>
   );
+
+  // Render Audio Mode Content
+  const renderAudioMode = () => {
+    // Show review mode if reviewing
+    if (audioReviewing && audioBlobUrl) {
+      return renderAudioReviewMode();
+    }
+
+    return (
+      <div className="record-video__audio-mode">
+        {/* Audio Visualization */}
+        <div className="record-video__audio-visualizer">
+          <div className="record-video__audio-wave">
+            {[...Array(20)].map((_, i) => (
+              <span
+                key={i}
+                className={`record-video__audio-bar ${isRecording ? 'active' : ''}`}
+                style={{
+                  animationDelay: `${i * 0.05}s`,
+                  height: isRecording ? `${Math.random() * 60 + 20}%` : '20%'
+                }}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Recording Timer */}
+        {isActive && (
+          <div className="record-video__audio-timer">
+            <span className={`record-video__timer-dot ${isRecording ? 'recording' : ''}`} />
+            <span className="record-video__timer-text">{formatTime(recordedTime)}</span>
+          </div>
+        )}
+
+        {/* Audio Controls */}
+        <div className="record-video__audio-controls">
+          <div className="record-video__control-side record-video__control-left">
+            {isPaused && (
+              <button
+                className="record-video__action-btn record-video__delete-btn"
+                onClick={handleAudioDelete}
+                aria-label="Delete recording"
+              >
+                <DeleteIcon />
+              </button>
+            )}
+          </div>
+
+          <button
+            className={`record-video__record-btn ${isRecording ? 'recording' : ''} ${isPaused ? 'paused' : ''}`}
+            onClick={handleAudioRecord}
+            aria-label={isRecording ? 'Pause recording' : isPaused ? 'Resume recording' : 'Start recording'}
+          >
+            <span className="record-video__record-btn-inner" />
+          </button>
+
+          <div className="record-video__control-side record-video__control-right">
+            {isPaused && (
+              <button
+                className="record-video__action-btn record-video__confirm-btn"
+                onClick={handleAudioConfirm}
+                aria-label="Confirm recording"
+              >
+                <CheckIcon />
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className={`record-video record-video--${activeMode}`}>

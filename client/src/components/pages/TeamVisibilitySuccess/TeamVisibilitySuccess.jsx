@@ -39,6 +39,13 @@ const TeamVisibilitySuccess = ({
     <div className="team-success">
       {/* Background Gradient */}
       <div className="team-success__background" />
+
+      {/* Animated Breathing Orbs */}
+      <div className="team-success__orbs">
+        <div className="team-success__orb team-success__orb--1" />
+        <div className="team-success__orb team-success__orb--2" />
+        <div className="team-success__orb team-success__orb--3" />
+      </div>
       
       {/* Content */}
       <div className="team-success__content">

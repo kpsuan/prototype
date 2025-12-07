@@ -95,23 +95,32 @@
 .recording-complete__avatar-row {
   display: flex;
   gap: 33px;
-  animation: slideAvatars 20s linear infinite;
+  width: max-content;
 }
 
 .recording-complete__avatar-row--top {
-  margin-left: -76px;
+  animation: scrollLeft 25s linear infinite;
 }
 
 .recording-complete__avatar-row--bottom {
-  margin-left: -9px;
+  animation: scrollRight 25s linear infinite;
 }
 
-@keyframes slideAvatars {
+@keyframes scrollLeft {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-20px);
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scrollRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
 
@@ -122,19 +131,6 @@
   overflow: hidden;
   flex-shrink: 0;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  animation: fadeInUp 0.6s ease forwards;
-  opacity: 0;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .recording-complete__avatar img {
@@ -270,12 +266,6 @@
 
   .recording-complete__avatar-row {
     gap: 40px;
-    justify-content: center;
-  }
-
-  .recording-complete__avatar-row--top,
-  .recording-complete__avatar-row--bottom {
-    margin-left: 0;
   }
 
   .recording-complete__content {

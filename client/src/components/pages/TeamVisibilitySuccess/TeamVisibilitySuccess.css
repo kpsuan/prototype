@@ -24,6 +24,85 @@
   pointer-events: none;
 }
 
+/* Animated Breathing Orbs */
+.team-success__orbs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.team-success__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.6;
+}
+
+.team-success__orb--1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(180, 50, 163, 0.5) 0%, rgba(180, 50, 163, 0) 70%);
+  top: 5%;
+  left: 10%;
+  animation: breathe1 6s ease-in-out infinite;
+}
+
+.team-success__orb--2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(92, 64, 251, 0.4) 0%, rgba(92, 64, 251, 0) 70%);
+  top: 20%;
+  right: 5%;
+  animation: breathe2 8s ease-in-out infinite;
+}
+
+.team-success__orb--3 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(174, 89, 207, 0.45) 0%, rgba(174, 89, 207, 0) 70%);
+  bottom: 15%;
+  left: 25%;
+  animation: breathe3 7s ease-in-out infinite;
+}
+
+@keyframes breathe1 {
+  0%, 100% {
+    transform: scale(1) translate(0, 0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.2) translate(10px, 10px);
+    opacity: 0.7;
+  }
+}
+
+@keyframes breathe2 {
+  0%, 100% {
+    transform: scale(1) translate(0, 0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.15) translate(-15px, 5px);
+    opacity: 0.6;
+  }
+}
+
+@keyframes breathe3 {
+  0%, 100% {
+    transform: scale(1) translate(0, 0);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(1.25) translate(5px, -10px);
+    opacity: 0.65;
+  }
+}
+
 /* Content container */
 .team-success__content {
   position: relative;
@@ -177,6 +256,27 @@
 
 /* Responsive - Mobile */
 @media (max-width: 768px) {
+  .team-success__orb--1 {
+    width: 250px;
+    height: 250px;
+    top: 2%;
+    left: 0;
+  }
+
+  .team-success__orb--2 {
+    width: 300px;
+    height: 300px;
+    top: 30%;
+    right: -10%;
+  }
+
+  .team-success__orb--3 {
+    width: 220px;
+    height: 220px;
+    bottom: 20%;
+    left: 10%;
+  }
+
   .team-success__content {
     padding: 60px 16px 32px;
     gap: 28px;

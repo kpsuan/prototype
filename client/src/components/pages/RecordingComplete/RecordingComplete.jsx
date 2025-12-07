@@ -15,7 +15,15 @@ const userAvatars = [
   { id: 3, src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face', alt: 'Team member 3' },
   { id: 4, src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face', alt: 'Team member 4' },
   { id: 5, src: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face', alt: 'Team member 5' },
+  { id: 6, src: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&h=100&fit=crop&crop=face', alt: 'Team member 6' },
+  { id: 7, src: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&h=100&fit=crop&crop=face', alt: 'Team member 7' },
+  { id: 8, src: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&h=100&fit=crop&crop=face', alt: 'Team member 8' },
 ];
+
+// Top row avatars (will scroll left to right)
+const topRowAvatars = userAvatars.slice(0, 5);
+// Bottom row avatars (will scroll right to left) - different order
+const bottomRowAvatars = [...userAvatars.slice(3), ...userAvatars.slice(0, 3)];
 
 const RecordingComplete = ({ 
   onReady, 
@@ -27,25 +35,43 @@ const RecordingComplete = ({
       <div className="recording-complete__illustration">
         <div className="recording-complete__gradient-bg"></div>
         
-        {/* Avatar Rows */}
+        {/* Avatar Rows - duplicated for seamless infinite scroll */}
         <div className="recording-complete__avatars">
           <div className="recording-complete__avatar-row recording-complete__avatar-row--top">
-            {userAvatars.slice(0, 4).map((avatar, index) => (
-              <div 
-                key={avatar.id} 
+            {/* First set */}
+            {topRowAvatars.map((avatar) => (
+              <div
+                key={`top-1-${avatar.id}`}
                 className="recording-complete__avatar"
-                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <img src={avatar.src} alt={avatar.alt} />
+              </div>
+            ))}
+            {/* Duplicate set for seamless loop */}
+            {topRowAvatars.map((avatar) => (
+              <div
+                key={`top-2-${avatar.id}`}
+                className="recording-complete__avatar"
               >
                 <img src={avatar.src} alt={avatar.alt} />
               </div>
             ))}
           </div>
           <div className="recording-complete__avatar-row recording-complete__avatar-row--bottom">
-            {[...userAvatars.slice(2), userAvatars[0], userAvatars[1]].slice(0, 4).map((avatar, index) => (
-              <div 
-                key={`bottom-${avatar.id}-${index}`} 
+            {/* First set */}
+            {bottomRowAvatars.map((avatar, index) => (
+              <div
+                key={`bottom-1-${avatar.id}-${index}`}
                 className="recording-complete__avatar"
-                style={{ animationDelay: `${(index + 4) * 0.1}s` }}
+              >
+                <img src={avatar.src} alt={avatar.alt} />
+              </div>
+            ))}
+            {/* Duplicate set for seamless loop */}
+            {bottomRowAvatars.map((avatar, index) => (
+              <div
+                key={`bottom-2-${avatar.id}-${index}`}
+                className="recording-complete__avatar"
               >
                 <img src={avatar.src} alt={avatar.alt} />
               </div>
