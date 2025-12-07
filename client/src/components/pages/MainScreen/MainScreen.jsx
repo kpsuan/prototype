@@ -1,0 +1,303 @@
+import React, { useState } from 'react';
+import './MainScreen.css';
+import { TwoColumnLayout, QuestionPanel, ContentPanel } from '../../layout';
+import { PrimaryButton } from '../../common/Button';
+import { CarouselIndicator } from '../../common/Indicator';
+import { AvatarRow } from '../../common/Avatar';
+import { AddMemberModal } from '../../common/Modal';
+import image1 from '../../../styles/image1.png';
+import logo from '../../../styles/logo.png';
+
+// Plus icon for add member button
+const PlusIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 5V19M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const MainScreen = ({
+  question,
+  team = [],
+  progress = { current: 1, total: 4 },
+  progressPercentage = 0,
+  hasStarted = false,
+  isComplete = false,
+  completedCheckpoints = { q1: false, q2: false, q3: false },
+  onContinue,
+  onBack,
+  onViewTeamRecordings,
+  onAddTeamMember,
+  userName = "Norman",
+  userAvatar = "https://i.pravatar.cc/82?img=12",
+  sentInvites = []
+}) => {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [isAddMemberModalOpen, setIsAddMemberModalOpen] = useState(false);
+
+  const { title, subtitle, sectionLabel } = question || {
+    title: "How important is staying alive even if you have substantial physical limitations?",
+    subtitle: "Question 10 A",
+    sectionLabel: "Advance Care Planning"
+  };
+
+  // Determine button text based on progress state
+  const getButtonText = () => {
+    if (isComplete) return "View Summary";
+    if (hasStarted) return "Continue";
+    return "Get Started";
+  };
+
+  const slides = [
+    {
+      id: 0,
+      title: "Why this Matters:",
+      content: [
+        {
+          text: 'Unlike prescriptive approaches, asking "What do you want your loved ones to know?" acknowledges that patients are the experts on their own lives and relationships.'
+        },
+        {
+          text: 'This open-ended format respects individual differences in privacy preferences, cultural values, and family dynamics while still facilitating meaningful communication.'
+        }
+      ]
+    },
+    {
+      id: 1,
+      title: "How it Works",
+      headerRight: `${progressPercentage}% PROGRESS`,
+      layers: "3 Layers",
+      content: [
+        {
+          checkpoint: "Checkpoint 1: Your Position",
+          description: "Where you stand what's your initial choice",
+          completed: completedCheckpoints.q1
+        },
+        {
+          checkpoint: "Checkpoint 2: Your Challenges",
+          description: "What challenges might change your position",
+          completed: completedCheckpoints.q2
+        },
+        {
+          checkpoint: "Checkpoint 3: What Would Change Your Mind",
+          description: "What would make you change your mind",
+          completed: completedCheckpoints.q3
+        }
+      ]
+    },
+    {
+      id: 2,
+      title: "Your Care Team",
+      content: [
+        {
+          text: "Help each other make plans that prioritize dignity and wellbeing."
+        }
+      ],
+      showTeam: true
+    }
+  ];
+
+  const handleSlideChange = (index) => {
+    setActiveSlide(index);
+  };
+
+  const renderSlideContent = (slide) => {
+    if (slide.id === 0) {
+      return (
+        <div className="main-screen__slide-content">
+          <h3 className="main-screen__slide-title">{slide.title}</h3>
+          {slide.content.map((item, idx) => (
+            <p key={idx} className="main-screen__slide-text">{item.text}</p>
+          ))}
+        </div>
+      );
+    }
+    
+    if (slide.id === 1) {
+      return (
+        <div className="main-screen__slide-content">
+          <h3 className="main-screen__slide-title">{slide.title}</h3>
+          <div className="main-screen__slide-header">
+            <span className="main-screen__layers-label">{slide.layers}</span>
+            <span className="main-screen__progress-label">{slide.headerRight}</span>
+          </div>
+          <div className="main-screen__checkpoints">
+            {slide.content.map((item, idx) => (
+              <div key={idx} className={`main-screen__checkpoint-item ${item.completed ? 'main-screen__checkpoint-item--completed' : ''}`}>
+                <div className="main-screen__checkpoint-header">
+                  <p className={`main-screen__checkpoint-link ${item.completed ? 'main-screen__checkpoint-link--completed' : ''}`}>
+                    {item.checkpoint}
+                  </p>
+                  {item.completed && (
+                    <span className="main-screen__checkpoint-check">✓</span>
+                  )}
+                </div>
+                <p className="main-screen__checkpoint-desc">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+    
+    if (slide.id === 2) {
+      // Default team members for demo
+      const defaultTeamMembers = [
+        { id: 1, name: "Dr. Sarah", avatar: "https://i.pravatar.cc/82?img=1", hasRecording: true },
+        { id: 2, name: "John", avatar: "https://i.pravatar.cc/82?img=2", hasRecording: true },
+        { id: 3, name: "Mary", avatar: "https://i.pravatar.cc/82?img=3", hasRecording: false },
+        { id: 4, name: "James", avatar: "https://i.pravatar.cc/82?img=4", hasRecording: false },
+        { id: 5, name: "Lisa", avatar: "https://i.pravatar.cc/82?img=5", hasRecording: false }
+      ];
+
+      const displayTeam = team.length > 0 ? team : defaultTeamMembers;
+
+      const handleAvatarClick = (member) => {
+        if (onViewTeamRecordings) {
+          onViewTeamRecordings(member.id);
+        }
+      };
+
+      return (
+        <div className="main-screen__slide-content">
+          <h3 className="main-screen__slide-title">{slide.title}</h3>
+          {slide.content.map((item, idx) => (
+            <p key={idx} className="main-screen__slide-text">{item.text}</p>
+          ))}
+          <div className="main-screen__team-avatars">
+            {/* Current User (You) */}
+            <div
+              className="main-screen__team-avatar-wrapper main-screen__team-avatar-wrapper--current-user"
+              onClick={() => handleAvatarClick({ id: 'current-user', name: userName })}
+              title="You"
+            >
+              <img
+                src={userAvatar}
+                alt={userName}
+                className="main-screen__team-avatar-img"
+              />
+              <span className="main-screen__team-avatar-name">You</span>
+            </div>
+            {/* Other Team Members */}
+            {displayTeam.map((member) => (
+              <div
+                key={member.id}
+                className={`main-screen__team-avatar-wrapper ${member.hasRecording ? 'main-screen__team-avatar-wrapper--has-recording' : ''}`}
+                onClick={() => handleAvatarClick(member)}
+                title={member.hasRecording ? `View ${member.name}'s recording` : member.name}
+              >
+                <img
+                  src={member.avatar}
+                  alt={member.name}
+                  className="main-screen__team-avatar-img"
+                />
+                {member.hasRecording && (
+                  <div className="main-screen__team-avatar-play">
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="10" cy="10" r="10" fill="rgba(255, 255, 255, 0.95)" />
+                      <path d="M8 6L14 10L8 14V6Z" fill="#B432A3" />
+                    </svg>
+                  </div>
+                )}
+                <span className="main-screen__team-avatar-name">{member.name}</span>
+              </div>
+            ))}
+            {/* Add Member Button */}
+            <div
+              className="main-screen__team-avatar-wrapper main-screen__add-member-btn"
+              onClick={() => setIsAddMemberModalOpen(true)}
+              title="Add team member"
+            >
+              <div className="main-screen__add-member-icon">
+                <PlusIcon />
+              </div>
+              <span className="main-screen__team-avatar-name">Add</span>
+            </div>
+          </div>
+          {onViewTeamRecordings && (
+            <button
+              type="button"
+              className="main-screen__view-recordings-link"
+              onClick={() => onViewTeamRecordings()}
+            >
+              View All Recordings →
+            </button>
+          )}
+        </div>
+      );
+    }
+    
+    return null;
+  };
+
+  return (
+    <TwoColumnLayout>
+      <QuestionPanel progress={progress} showBack={true} onBack={onBack} hideProgress={true}>
+        <div className="main-screen__left">
+          <div className="main-screen__icon">
+            <div className="main-screen__icon-outer">
+              <div className="main-screen__icon-inner">
+                <img src={logo} alt="AWFM Logo" className="main-screen__logo-img" />
+              </div>
+            </div>
+          </div>
+          
+          <div className="main-screen__question-info">
+            <span className="main-screen__section-label">{sectionLabel || "Advance Care Planning"}</span>
+            <span className="main-screen__question-number">{subtitle || "Question 10 A"}</span>
+            <h1 className="main-screen__question-title">{title}</h1>
+          </div>
+        </div>
+      </QuestionPanel>
+
+      <ContentPanel>
+        <div className="main-screen__right">
+          <div className="main-screen__image-container">
+            <img src={image1} alt="Elderly person" className="main-screen__image" />
+          </div>
+          
+          {/* Question info for tablet view */}
+          <div className="main-screen__tablet-question-info">
+            <span className="main-screen__tablet-section-label">{sectionLabel || "Advance Care Planning"}</span>
+            <span className="main-screen__tablet-question-number">{subtitle || "Question 10 A"}</span>
+            <h1 className="main-screen__tablet-question-title">{title}</h1>
+          </div>
+          
+          <div className="main-screen__info-section">
+            {renderSlideContent(slides[activeSlide])}
+          </div>
+          
+          <div className="main-screen__carousel-indicator">
+            <CarouselIndicator 
+              total={slides.length} 
+              active={activeSlide} 
+              onClick={handleSlideChange} 
+            />
+          </div>
+          
+          <div className="main-screen__action">
+            <PrimaryButton onClick={onContinue} fullWidth>
+              {getButtonText()}
+              <span className="main-screen__arrow">→</span>
+            </PrimaryButton>
+          </div>
+        </div>
+      </ContentPanel>
+
+      {/* Add Member Modal */}
+      <AddMemberModal
+        isOpen={isAddMemberModalOpen}
+        onClose={() => setIsAddMemberModalOpen(false)}
+        onAddMember={(memberData) => {
+          if (onAddTeamMember) {
+            onAddTeamMember(memberData);
+          }
+          console.log('Adding team member:', memberData);
+        }}
+        userName={userName}
+        userAvatar={userAvatar}
+        sentInvites={sentInvites}
+      />
+    </TwoColumnLayout>
+  );
+};
+
+export default MainScreen;

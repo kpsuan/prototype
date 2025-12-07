@@ -1,0 +1,467 @@
+.choice-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-white);
+  border-radius: 24px;
+  padding: 24px 17px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: 1px solid #e5e7eb;
+  box-shadow: 0px 4px 16px 0px rgba(81, 9, 71, 0.12);
+  width: 100%;
+  max-width: 500px;
+  min-width: 320px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.choice-card:hover {
+  box-shadow: 0px 6px 24px 0px rgba(81, 9, 71, 0.18);
+  border-color: #d1d5db;
+}
+
+.choice-card--selected {
+  background: #f5f2ff;
+  border-color: rgba(180, 50, 163, 0.3);
+}
+
+.choice-card--selected.choice-card--expanded {
+  border-color: #5c40fb;
+  background: var(--color-white);
+}
+
+/* Review mode styles */
+.choice-card--review {
+  cursor: default;
+}
+
+.choice-card--review:hover {
+  box-shadow: 3px 6px 21.4px 0px rgba(81, 9, 71, 0.08);
+}
+
+/* Header with checkbox and title */
+.choice-card__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.choice-card__checkbox {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  border: 2px solid rgba(7, 17, 46, 0.06);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  background: var(--color-white);
+  box-shadow: 0px 1px 1px -4px rgba(11, 19, 36, 0.08), 0px 4px 6px -3px rgba(11, 19, 36, 0.1);
+  margin-top: 3px;
+}
+
+.choice-card--selected .choice-card__checkbox {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+.choice-card__checkbox-fill {
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(180deg, #b432a3 25%, #ae59cf 100%);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.choice-card__checkbox-check {
+  width: 10px;
+  height: 10px;
+  color: white;
+}
+
+.choice-card__title-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.choice-card__subtitle {
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #8a8e99;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.choice-card__title {
+  font-family: 'Mulish', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #191c24;
+  margin: 0;
+  line-height: 22px;
+}
+
+.choice-card__title--selected {
+  background: linear-gradient(180deg, #b432a3 25%, #ae59cf 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Header divider */
+.choice-card__header-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(180, 50, 163, 0.4) 0%, rgba(174, 89, 207, 0.05) 100%);
+  margin: 16px 0;
+}
+
+/* Image */
+.choice-card__image {
+  width: calc(100% + 34px);
+  margin-left: -17px;
+  margin-right: -17px;
+  aspect-ratio: 16 / 10;
+  max-height: 220px;
+  border-radius: 0;
+  overflow: hidden;
+  margin-top: 12px;
+  margin-bottom: 16px;
+}
+
+.choice-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Image responsive adjustments to match card padding */
+@media (min-width: 1400px) {
+  .choice-card__image {
+    width: calc(100% + 48px);
+    margin-left: -24px;
+    margin-right: -24px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1399px) {
+  .choice-card__image {
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1023px) {
+  .choice-card__image {
+    width: calc(100% + 36px);
+    margin-left: -18px;
+    margin-right: -18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .choice-card__image {
+    width: calc(100% + 28px);
+    margin-left: -14px;
+    margin-right: -14px;
+  }
+}
+
+/* Quote/description text - for expanded state (same as collapsed) */
+.choice-card__quote {
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #5a5e6b;
+  line-height: 24px;
+  letter-spacing: -0.3px;
+  margin: 0 0 8px 0;
+}
+
+/* Description text - for collapsed state */
+.choice-card__description {
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #5a5e6b;
+  line-height: 24px;
+  letter-spacing: -0.3px;
+  margin: 0 0 8px 0;
+}
+
+.choice-card__preview {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.choice-card__preview-label {
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #8a8e99;
+  line-height: 15px;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+.choice-card__preview-text {
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #8a8e99;
+  line-height: 22px;
+  letter-spacing: 0;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Content */
+.choice-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.choice-card__description {
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #8a8e99;
+  line-height: 22px;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+/* Expand button */
+.choice-card__expand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  background: linear-gradient(180deg, #b432a3 25%, #ae59cf 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  line-height: 15px;
+  letter-spacing: 0;
+  margin-top: 8px;
+}
+
+.choice-card__expand-icon {
+  width: 12px;
+  height: 12px;
+  transition: transform var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.choice-card__expand-icon--rotated {
+  transform: rotate(180deg);
+}
+
+/* Expanded content */
+.choice-card__expanded {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 8px;
+  animation: fadeIn var(--transition-fast);
+}
+
+.choice-card__section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 0;
+}
+
+.choice-card__section:first-child {
+  padding-top: 0;
+}
+
+.choice-card__section-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.choice-card__section-title {
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  background: linear-gradient(180deg, #b432a3 25%, #ae59cf 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 15px;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+.choice-card__info-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* Info icon wrapper with tooltip */
+.choice-card__info-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.choice-card__tooltip {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  pointer-events: none;
+}
+
+.choice-card__info-wrapper:hover .choice-card__tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.choice-card__tooltip-arrow {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #ae59cf;
+}
+
+.choice-card__tooltip-content {
+  background: linear-gradient(180deg, #b432a3 25%, #ae59cf 100%);
+  color: #fff;
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 16px 20px;
+  border-radius: 12px;
+  min-width: 200px;
+  max-width: 280px;
+  text-align: center;
+  white-space: normal;
+  box-shadow: 0 4px 20px rgba(92, 64, 251, 0.3);
+}
+
+.choice-card__section-icon {
+  font-size: 12px;
+  color: #b432a3;
+}
+
+.choice-card__section-text {
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: #4a4d57;
+  line-height: 22px;
+  letter-spacing: -0.3px;
+  margin: 0;
+}
+
+/* Section divider */
+.choice-card__section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(180, 50, 163, 0.25) 0%, rgba(174, 89, 207, 0.05) 100%);
+}
+
+.choice-card__divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(180, 50, 163, 0.3) 0%, rgba(174, 89, 207, 0.1) 100%);
+  margin: 8px 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive - Large Desktop */
+@media (min-width: 1400px) {
+  .choice-card {
+    max-width: 600px;
+    min-width: 500px;
+    padding: 28px 24px;
+  }
+}
+
+/* Responsive - Desktop */
+@media (min-width: 1024px) and (max-width: 1399px) {
+  .choice-card {
+    max-width: 520px;
+    min-width: 420px;
+    padding: 26px 20px;
+  }
+}
+
+/* Responsive - Tablet */
+@media (min-width: 769px) and (max-width: 1023px) {
+  .choice-card {
+    max-width: 450px;
+    min-width: 380px;
+    padding: 24px 18px;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .choice-card {
+    padding: 20px 14px;
+    border-radius: 20px;
+    max-width: calc(100vw - 48px);
+    min-width: 280px;
+    width: calc(100vw - 48px);
+  }
+  
+  .choice-card__title {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  
+  .choice-card__description {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  
+  .choice-card__preview-text {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  
+  .choice-card__section-text {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}

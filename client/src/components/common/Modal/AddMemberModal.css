@@ -1,0 +1,387 @@
+.add-member-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Header */
+.add-member-modal__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 0 20px 0;
+}
+
+.add-member-modal__title {
+  font-family: 'Mulish', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #5C40FB;
+  margin: 0;
+  line-height: 28px;
+}
+
+/* Tabs */
+.add-member-modal__tabs {
+  display: flex;
+  background: #F3F4F6;
+  border-radius: 25px;
+  padding: 4px;
+  margin-bottom: 20px;
+}
+
+.add-member-modal__tab {
+  flex: 1;
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #B432A3;
+  background: transparent;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 22px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-member-modal__tab:hover:not(.add-member-modal__tab--active) {
+  background: rgba(180, 50, 163, 0.1);
+}
+
+.add-member-modal__tab--active {
+  background: linear-gradient(180deg, #B432A3 0%, #AE59CF 100%);
+  color: white;
+}
+
+/* Form */
+.add-member-modal__invite-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.add-member-modal__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.add-member-modal__label {
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.add-member-modal__email-input {
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #5C40FB;
+  padding: 14px 16px;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  background: white;
+  transition: all 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.add-member-modal__email-input:focus {
+  outline: none;
+  border-color: #B432A3;
+  box-shadow: 0 0 0 3px rgba(180, 50, 163, 0.1);
+}
+
+.add-member-modal__email-input::placeholder {
+  color: #5C40FB;
+  font-weight: 500;
+}
+
+.add-member-modal__select {
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #1e1e1e;
+  padding: 12px 16px;
+  border: 1px solid #D1D5DB;
+  border-radius: 10px;
+  background: #F9FAFB;
+  transition: all 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+
+.add-member-modal__select:focus {
+  outline: none;
+  border-color: #B432A3;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(180, 50, 163, 0.1);
+}
+
+.add-member-modal__limit-text {
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #6B7280;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Message Preview */
+.add-member-modal__message-preview {
+  background: #F9FAFB;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 8px;
+}
+
+.add-member-modal__message-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.add-member-modal__message-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-member-modal__message-greeting {
+  font-family: 'Mulish', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e1e1e;
+}
+
+.add-member-modal__message-text {
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #6B7280;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Actions */
+.add-member-modal__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.add-member-modal__btn {
+  width: 100%;
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 16px 24px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.add-member-modal__btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.add-member-modal__btn--primary {
+  background: linear-gradient(180deg, #B432A3 0%, #AE59CF 100%);
+  color: white;
+  border: none;
+}
+
+.add-member-modal__btn--primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(180, 50, 163, 0.3);
+}
+
+.add-member-modal__btn--secondary {
+  background: white;
+  color: #B432A3;
+  border: 2px solid #5C40FB;
+}
+
+.add-member-modal__btn--secondary:hover:not(:disabled) {
+  background: rgba(92, 64, 251, 0.05);
+}
+
+.add-member-modal__btn-arrow {
+  font-size: 18px;
+}
+
+/* Sent Invites Tab */
+.add-member-modal__sent-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Stats */
+.add-member-modal__stats {
+  display: flex;
+  justify-content: space-around;
+  padding: 16px 0;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.add-member-modal__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.add-member-modal__stat-number {
+  font-family: 'Mulish', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #5C40FB;
+  line-height: 1;
+}
+
+.add-member-modal__stat-label {
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6B7280;
+}
+
+/* Invite List */
+.add-member-modal__invite-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.add-member-modal__invite-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid #F3F4F6;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.add-member-modal__invite-item:hover {
+  background: #F9FAFB;
+  margin: 0 -24px;
+  padding: 16px 24px;
+}
+
+.add-member-modal__invite-item--selected {
+  background: rgba(92, 64, 251, 0.05);
+}
+
+.add-member-modal__invite-checkbox {
+  padding-top: 2px;
+}
+
+.add-member-modal__checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #D1D5DB;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.add-member-modal__checkbox--checked {
+  background: linear-gradient(180deg, #5C40FB 0%, #B432A3 100%);
+  border-color: transparent;
+}
+
+.add-member-modal__invite-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.add-member-modal__invite-email {
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #1e1e1e;
+}
+
+.add-member-modal__invite-status {
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.add-member-modal__invite-status--joined {
+  color: #B432A3;
+}
+
+.add-member-modal__invite-status--opened {
+  color: #5C40FB;
+}
+
+.add-member-modal__invite-status--sent {
+  color: #8A8E99;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .add-member-modal__header {
+    padding: 0 0 16px 0;
+  }
+
+  .add-member-modal__title {
+    font-size: 18px;
+  }
+
+  .add-member-modal__tabs {
+    margin-bottom: 16px;
+  }
+
+  .add-member-modal__tab {
+    font-size: 13px;
+    padding: 10px 16px;
+  }
+
+  .add-member-modal__message-preview {
+    padding: 12px;
+  }
+
+  .add-member-modal__message-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .add-member-modal__message-greeting {
+    font-size: 16px;
+  }
+
+  .add-member-modal__stat-number {
+    font-size: 24px;
+  }
+
+  .add-member-modal__invite-item:hover {
+    margin: 0 -20px;
+    padding: 16px 20px;
+  }
+}

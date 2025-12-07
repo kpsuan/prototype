@@ -1,0 +1,227 @@
+.team-success {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Gradient background */
+.team-success__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  min-height: 100vh;
+  background-image: url('../../../styles/gradient.png');
+  background-size: 100% auto;
+  background-position: center top;
+  background-repeat: no-repeat;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Content container */
+.team-success__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 38px;
+  max-width: 723px;
+  width: 100%;
+  padding: 100px 20px 40px;
+  box-sizing: border-box;
+}
+
+/* Avatar */
+.team-success__avatar-container {
+  position: relative;
+}
+
+.team-success__avatar {
+  width: 278px;
+  height: 278px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.5), 0px 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Text Block */
+.team-success__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 45px;
+  text-align: center;
+  width: 100%;
+}
+
+.team-success__title {
+  font-family: 'Besley', serif;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 52.5px;
+  letter-spacing: 0;
+  margin: 0;
+  background: linear-gradient(180deg, #B432A3 25%, #AE59CF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.team-success__subtitle {
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0;
+  color: #8a8e99;
+  margin: 0;
+  max-width: 437px;
+}
+
+/* Response Options */
+.team-success__options {
+  display: flex;
+  justify-content: center;
+  gap: 52px;
+}
+
+.team-success__option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.team-success__option-icon {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #B432A3 0%, #5C40FB 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 12px rgba(180, 50, 163, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.team-success__option:hover .team-success__option-icon {
+  transform: scale(1.05);
+  box-shadow: 0px 6px 16px rgba(180, 50, 163, 0.4);
+}
+
+.team-success__option-label {
+  font-family: 'Mulish', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  color: #8a8e99;
+}
+
+/* Action Buttons */
+.team-success__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 27px;
+  width: 100%;
+  max-width: 664px;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1023px) {
+  .team-success__content {
+    padding: 80px 24px 40px;
+  }
+
+  .team-success__avatar {
+    width: 220px;
+    height: 220px;
+  }
+
+  .team-success__title {
+    font-size: 32px;
+    line-height: 44px;
+  }
+
+  .team-success__subtitle {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  .team-success__options {
+    gap: 36px;
+  }
+
+  .team-success__option-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .team-success__option-label {
+    font-size: 14px;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .team-success__content {
+    padding: 60px 16px 32px;
+    gap: 28px;
+  }
+
+  .team-success__avatar {
+    width: 160px;
+    height: 160px;
+  }
+
+  .team-success__text {
+    gap: 24px;
+  }
+
+  .team-success__title {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .team-success__subtitle {
+    font-size: 16px;
+    line-height: 24px;
+    max-width: 300px;
+  }
+
+  .team-success__options {
+    gap: 24px;
+  }
+
+  .team-success__option-icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .team-success__option-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .team-success__option-label {
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  .team-success__actions {
+    gap: 16px;
+  }
+}

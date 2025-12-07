@@ -1,0 +1,1327 @@
+.record-video {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+}
+
+/* Gradient Background */
+.record-video__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  min-height: 100vh;
+  background-image: url('../../../styles/gradient.png');
+  background-size: 100% auto;
+  background-position: center top;
+  background-repeat: no-repeat;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Content */
+.record-video__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1024px;
+  padding: 60px 20px 40px;
+  box-sizing: border-box;
+}
+
+/* Title */
+.record-video__title {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0;
+  color: #fff;
+  text-align: center;
+  margin: 0 0 30px 0;
+}
+
+/* Video Preview Container */
+.record-video__preview-container {
+  width: 100%;
+  max-width: 1024px;
+}
+
+.record-video__preview {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1024 / 590;
+  background-color: #000;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.record-video__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1); /* Mirror the video */
+}
+
+.record-video__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #1a1a1a;
+  color: #fff;
+  gap: 16px;
+}
+
+.record-video__placeholder p {
+  font-family: var(--font-body);
+  font-size: 16px;
+  margin: 0;
+}
+
+.record-video__enable-btn {
+  font-family: var(--font-label);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 24px;
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.record-video__enable-btn:hover {
+  background-color: var(--color-primary-dark);
+}
+
+/* Recording Timer */
+.record-video__timer {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+.record-video__timer-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #EA4359;
+}
+
+.record-video__timer-dot.recording {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.record-video__timer-text {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Controls Container */
+.record-video__controls {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 0 30px;
+}
+
+.record-video__control-side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.record-video__control-left {
+  justify-content: flex-end;
+  padding-right: 40px;
+}
+
+.record-video__control-right {
+  justify-content: flex-start;
+  padding-left: 40px;
+}
+
+/* Time Badge */
+.record-video__time-badge {
+  background-color: rgba(74, 144, 217, 0.9);
+  padding: 6px 16px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.record-video__time-badge span {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Action Buttons (Delete/Confirm) */
+.record-video__action-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.record-video__action-btn:hover {
+  transform: scale(1.1);
+}
+
+.record-video__delete-btn {
+  background-color: rgba(74, 144, 217, 0.9);
+  color: #fff;
+}
+
+.record-video__delete-btn:hover {
+  background-color: rgba(74, 144, 217, 1);
+}
+
+.record-video__confirm-btn {
+  background-color: rgba(74, 144, 217, 0.9);
+  color: #fff;
+}
+
+.record-video__confirm-btn:hover {
+  background-color: rgba(74, 144, 217, 1);
+}
+
+/* Record Button */
+.record-video__record-btn {
+  width: 106px;
+  height: 106px;
+  border-radius: 50%;
+  background-color: rgba(234, 67, 89, 0.3);
+  border: 4px solid #EA4359;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.record-video__record-btn:hover {
+  transform: scale(1.05);
+}
+
+.record-video__record-btn-inner {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #EA4359;
+  transition: all 0.2s ease;
+}
+
+.record-video__record-btn.recording .record-video__record-btn-inner {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+.record-video__record-btn.paused .record-video__record-btn-inner {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+/* Upload Button */
+.record-video__upload-btn {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.record-video__upload-icon {
+  width: 43px;
+  height: 43px;
+  border-radius: 4px;
+  border: 2px solid #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0.33px 4px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.record-video__upload-icon svg {
+  width: 37px;
+  height: 37px;
+}
+
+.record-video__upload-label {
+  font-family: 'Roboto', var(--font-body);
+  font-size: 11px;
+  font-weight: 400;
+  color: #fff;
+  text-shadow: 0px 0.33px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Flip Camera Button */
+.record-video__flip-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: all 0.2s ease;
+}
+
+.record-video__flip-btn:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  transform: scale(1.1);
+}
+
+/* Close Button (hidden on desktop) */
+.record-video__close-btn {
+  display: none;
+}
+
+/* ==================== TEXT MODE ==================== */
+.record-video__text-mode {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.record-video__text-container {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.record-video__text-title {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 16px 0;
+}
+
+.record-video__textarea {
+  width: 100%;
+  min-height: 200px;
+  padding: 16px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  resize: vertical;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.record-video__textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.record-video__textarea::placeholder {
+  color: #999;
+}
+
+.record-video__text-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+}
+
+.record-video__text-toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.record-video__text-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #666;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.record-video__text-btn:hover {
+  background: #e8e8e8;
+  color: #333;
+}
+
+.record-video__text-btn--font {
+  font-family: serif;
+  font-size: 16px;
+}
+
+.record-video__text-submit {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #fff;
+  margin-left: auto;
+  transition: all 0.2s ease;
+}
+
+.record-video__text-submit:hover:not(:disabled) {
+  transform: scale(1.1);
+}
+
+.record-video__text-submit:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* ==================== AUDIO MODE ==================== */
+.record-video__audio-mode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex: 1;
+  padding: 40px 20px;
+}
+
+.record-video__audio-visualizer {
+  width: 100%;
+  max-width: 400px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.record-video__audio-wave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 100%;
+}
+
+.record-video__audio-bar {
+  width: 6px;
+  height: 20%;
+  background: linear-gradient(180deg, var(--color-primary) 0%, #d64ab0 100%);
+  border-radius: 3px;
+  transition: height 0.1s ease;
+}
+
+.record-video__audio-bar.active {
+  animation: audioWave 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes audioWave {
+  from { height: 20%; }
+  to { height: 80%; }
+}
+
+.record-video__audio-timer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+
+.record-video__audio-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  max-width: 400px;
+}
+
+.record-video__audio-controls .record-video__control-side {
+  flex: 1;
+  display: flex;
+}
+
+.record-video__audio-controls .record-video__control-left {
+  justify-content: flex-end;
+  padding-right: 30px;
+}
+
+.record-video__audio-controls .record-video__control-right {
+  justify-content: flex-start;
+  padding-left: 30px;
+}
+
+/* Audio mode specific background */
+.record-video--audio {
+  background-color: #0a0a0a;
+}
+
+.record-video--audio .record-video__background {
+  opacity: 0.5;
+}
+
+/* ==================== REVIEW MODE ==================== */
+.record-video__preview--review {
+  cursor: pointer;
+}
+
+.record-video__video--review {
+  transform: none; /* Don't mirror playback */
+}
+
+.record-video__play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+.record-video__play-btn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  background-color: #fff;
+}
+
+.record-video__play-btn svg {
+  margin-left: 4px; /* Optical centering for play icon */
+}
+
+.record-video__review-duration {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+.record-video__review-duration span {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Description Section */
+.record-video__description-section {
+  width: 100%;
+  padding: 20px 20px 0;
+  box-sizing: border-box;
+}
+
+.record-video__description-label {
+  display: block;
+  font-family: var(--font-label);
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.record-video__description-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.record-video__description-input {
+  width: 100%;
+  padding: 14px 60px 14px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: #333;
+  background-color: #fff;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.record-video__description-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(180, 50, 163, 0.1);
+}
+
+.record-video__description-input::placeholder {
+  color: #999;
+}
+
+.record-video__description-count {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: #999;
+}
+
+.record-video__review-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 24px 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.record-video__review-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-label);
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.record-video__review-btn:hover {
+  transform: translateY(-2px);
+}
+
+.record-video__review-btn--rerecord {
+  background-color: #f5f5f5;
+  color: #333;
+  border: 1px solid #e0e0e0;
+}
+
+.record-video__review-btn--rerecord:hover {
+  background-color: #ebebeb;
+}
+
+.record-video__review-btn--submit {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #d64ab0 100%);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(180, 50, 163, 0.3);
+}
+
+.record-video__review-btn--submit:hover {
+  box-shadow: 0 6px 20px rgba(180, 50, 163, 0.4);
+}
+
+.record-video--audio .record-video__audio-timer .record-video__timer-text {
+  color: #fff;
+  font-size: 18px;
+}
+
+/* Mode Tabs */
+.record-video__mode-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.record-video__mode-tab {
+  font-family: var(--font-body);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0;
+  color: #000;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.record-video__mode-tab.active {
+  opacity: 1;
+}
+
+.record-video__mode-tab:hover {
+  opacity: 1;
+}
+
+.record-video__mode-underline {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 38px;
+  height: 2px;
+  background-color: #000;
+}
+
+/* Responsive - Tablet & Mobile (Story Mode) */
+@media (max-width: 1023px) {
+  /* Full screen story mode for mobile */
+  .record-video {
+    min-height: 100vh;
+    min-height: 100dvh;
+    background-color: #000;
+    overflow: hidden;
+  }
+
+  .record-video__background {
+    display: none;
+  }
+
+  .record-video__content {
+    padding: 0;
+    height: 100vh;
+    height: 100dvh;
+    max-width: 100%;
+    position: relative;
+  }
+
+  .record-video__title {
+    display: none;
+  }
+
+  .record-video__preview-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 100%;
+  }
+
+  .record-video__preview {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: unset;
+    border-radius: 0;
+  }
+
+  .record-video__video {
+    object-fit: cover;
+  }
+
+  /* Close button - top left */
+  .record-video__close-btn {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    z-index: 20;
+  }
+
+  /* Controls at bottom */
+  .record-video__controls {
+    bottom: 100px;
+    padding: 0 20px;
+  }
+
+  .record-video__control-left {
+    padding-right: 20px;
+  }
+
+  .record-video__control-right {
+    padding-left: 20px;
+  }
+
+  .record-video__record-btn {
+    width: 80px;
+    height: 80px;
+    border-width: 4px;
+  }
+
+  .record-video__record-btn-inner {
+    width: 52px;
+    height: 52px;
+  }
+
+  .record-video__record-btn.recording .record-video__record-btn-inner,
+  .record-video__record-btn.paused .record-video__record-btn-inner {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+  }
+
+  .record-video__action-btn {
+    width: 44px;
+    height: 44px;
+    background-color: rgba(74, 144, 217, 0.9);
+  }
+
+  .record-video__action-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .record-video__time-badge {
+    padding: 6px 14px;
+    background-color: rgba(74, 144, 217, 0.9);
+    border-radius: 6px;
+  }
+
+  .record-video__time-badge span {
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .record-video__timer {
+    top: 20px;
+    padding: 8px 16px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+  }
+
+  .record-video__timer-text {
+    font-size: 15px;
+  }
+
+  /* Upload button - bottom right */
+  .record-video__upload-btn {
+    bottom: 110px;
+    right: 20px;
+  }
+
+  .record-video__upload-icon {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .record-video__upload-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .record-video__upload-label {
+    font-size: 11px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Flip camera - top right */
+  .record-video__flip-btn {
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  /* Mode tabs at very bottom */
+  .record-video__mode-tabs {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    gap: 24px;
+    margin-top: 0;
+    z-index: 10;
+  }
+
+  .record-video__mode-tab {
+    font-size: 14px;
+    line-height: 20px;
+    color: rgba(255, 255, 255, 0.6);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .record-video__mode-tab.active {
+    color: #fff;
+  }
+
+  .record-video__mode-underline {
+    width: 40px;
+    height: 2px;
+    background-color: #fff;
+    bottom: -6px;
+  }
+
+  /* ===== TEXT MODE MOBILE ===== */
+  .record-video--text {
+    background-color: #fff;
+  }
+
+  .record-video--text .record-video__close-btn {
+    background-color: transparent;
+    color: #333;
+  }
+
+  .record-video--text .record-video__mode-tab {
+    color: rgba(0, 0, 0, 0.4);
+    text-shadow: none;
+  }
+
+  .record-video--text .record-video__mode-tab.active {
+    color: #000;
+  }
+
+  .record-video--text .record-video__mode-underline {
+    background-color: #000;
+  }
+
+  .record-video__text-mode {
+    padding: 70px 40px 100px;
+    height: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .record-video__text-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    box-shadow: none;
+    padding: 20px 0;
+  }
+
+  .record-video__text-title {
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+
+  .record-video__textarea {
+    flex: 1;
+    min-height: 200px;
+    font-size: 15px;
+    border: 1px solid #ddd;
+  }
+
+  .record-video__text-toolbar {
+    background: #fff;
+    padding: 12px 0;
+    border-top: 1px solid #eee;
+    margin-top: 12px;
+  }
+
+  /* ===== AUDIO MODE MOBILE ===== */
+  .record-video--audio {
+    background-color: #0a0a0a;
+  }
+
+  .record-video--audio .record-video__background {
+    display: block;
+    opacity: 0.6;
+  }
+
+  .record-video__audio-mode {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 80px 20px 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .record-video__audio-visualizer {
+    max-width: 350px;
+    height: 180px;
+    margin-bottom: 40px;
+  }
+
+  .record-video__audio-wave {
+    gap: 3px;
+  }
+
+  .record-video__audio-bar {
+    width: 4px;
+    background: linear-gradient(180deg, rgba(180, 50, 163, 0.8) 0%, rgba(214, 74, 176, 0.6) 100%);
+  }
+
+  .record-video__audio-controls {
+    position: absolute;
+    bottom: 100px;
+    left: 0;
+    right: 0;
+    padding: 0 20px;
+  }
+
+  .record-video--audio .record-video__mode-tab {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .record-video--audio .record-video__mode-tab.active {
+    color: #fff;
+  }
+
+  .record-video--audio .record-video__mode-underline {
+    background-color: #fff;
+  }
+
+  /* ===== REVIEW MODE MOBILE ===== */
+  .record-video__play-btn {
+    width: 70px;
+    height: 70px;
+  }
+
+  .record-video__play-btn svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .record-video__review-duration {
+    top: 16px;
+    padding: 6px 14px;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .record-video__review-duration span {
+    font-size: 14px;
+  }
+
+  .record-video__description-section {
+    position: absolute;
+    bottom: 180px;
+    left: 0;
+    right: 0;
+    padding: 0 20px;
+    z-index: 15;
+  }
+
+  .record-video__description-label {
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  .record-video__description-input {
+    padding: 12px 55px 12px 14px;
+    font-size: 14px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.95);
+  }
+
+  .record-video__description-count {
+    font-size: 11px;
+    right: 12px;
+  }
+
+  .record-video__review-controls {
+    position: absolute;
+    bottom: 90px;
+    left: 0;
+    right: 0;
+    flex-direction: row;
+    gap: 12px;
+    padding: 0 20px;
+    z-index: 15;
+  }
+
+  .record-video__review-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 14px 20px;
+    font-size: 14px;
+  }
+
+  .record-video__review-btn--rerecord {
+    order: 1;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+  }
+
+  .record-video__review-btn--rerecord:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .record-video__review-btn--submit {
+    order: 2;
+  }
+}
+
+/* ==================== Instructions Modal ==================== */
+.record-video__modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.record-video__modal {
+  background: #fff;
+  border-radius: 16px;
+  max-width: 520px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.record-video__modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+.record-video__modal-close:hover {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.record-video__modal-content {
+  padding: 40px 32px 32px;
+}
+
+.record-video__modal-title {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-align: center;
+  margin: 0 0 20px 0;
+  letter-spacing: -0.5px;
+}
+
+.record-video__modal-intro {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: #444;
+  text-align: center;
+  margin: 0 0 28px 0;
+}
+
+.record-video__modal-section {
+  margin-bottom: 24px;
+}
+
+.record-video__modal-tips {
+  background-color: #f9f5f8;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 28px;
+}
+
+.record-video__modal-subtitle {
+  font-family: var(--font-label);
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 12px 0;
+}
+
+.record-video__modal-list {
+  margin: 0;
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+.record-video__modal-list li {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.record-video__modal-list li:last-child {
+  margin-bottom: 0;
+}
+
+.record-video__modal-tips .record-video__modal-list li {
+  color: #666;
+}
+
+.record-video__modal-btn {
+  width: 100%;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, #d64ab0 100%);
+  color: #fff;
+  font-family: var(--font-label);
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(180, 50, 163, 0.3);
+}
+
+.record-video__modal-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(180, 50, 163, 0.4);
+}
+
+.record-video__modal-btn:active {
+  transform: translateY(0);
+}
+
+/* Modal Responsive */
+@media (max-width: 767px) {
+  .record-video__modal-overlay {
+    padding: 16px;
+    align-items: flex-end;
+  }
+
+  .record-video__modal {
+    max-height: 85vh;
+    border-radius: 20px 20px 0 0;
+    animation: slideUpMobile 0.3s ease;
+  }
+
+  @keyframes slideUpMobile {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .record-video__modal-content {
+    padding: 32px 24px 24px;
+  }
+
+  .record-video__modal-title {
+    font-size: 24px;
+  }
+
+  .record-video__modal-intro {
+    font-size: 15px;
+  }
+
+  .record-video__modal-list li {
+    font-size: 14px;
+  }
+
+  .record-video__modal-tips {
+    padding: 16px;
+  }
+}

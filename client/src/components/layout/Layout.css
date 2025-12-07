@@ -1,0 +1,121 @@
+/* Two Column Layout */
+.two-column-layout {
+  display: flex;
+  height: calc(100vh - 66px); /* Account for top navbar */
+  width: 100%;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .two-column-layout {
+    flex-direction: column;
+    height: auto;
+    min-height: calc(100vh - 66px);
+    overflow: visible;
+  }
+}
+
+/* Question Panel (Left) */
+.question-panel {
+  width: var(--panel-left-width);
+  background: var(--gradient-purple);
+  padding: var(--space-xl) var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 66px); /* Account for top navbar */
+  position: sticky;
+  top: 66px;
+  overflow: hidden;
+}
+
+.question-panel__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.question-panel__nav-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.question-panel__back-wrapper {
+  flex-shrink: 0;
+}
+
+.question-panel__back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 1);
+  color: var(--color-primary);
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.question-panel__back:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.question-panel__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1024px) {
+  .question-panel {
+    padding: var(--space-lg);
+  }
+}
+
+@media (max-width: 1023px) {
+  .question-panel {
+    display: none;
+  }
+  
+  .two-column-layout {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .question-panel {
+    display: none;
+  }
+}
+
+/* Content Panel (Right) */
+.content-panel {
+  width: var(--panel-right-width);
+  background: var(--color-white);
+  height: calc(100vh - 66px); /* Account for top navbar */
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+@media (max-width: 1023px) {
+  .content-panel {
+    width: 100%;
+    min-height: auto;
+    flex: 1;
+    padding: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .content-panel {
+    width: 100%;
+    min-height: auto;
+    flex: 1;
+    padding: 0;
+  }
+}

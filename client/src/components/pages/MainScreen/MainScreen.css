@@ -1,0 +1,538 @@
+.main-screen__left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  padding: var(--space-xl) 0;
+}
+
+.main-screen__icon {
+  margin-bottom: var(--space-2xl);
+}
+
+.main-screen__icon-outer {
+  width: 255px;
+  height: 255px;
+  background: linear-gradient(180deg, rgba(64, 92, 251, 0.3) 0%, rgba(242, 59, 139, 0.3) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.main-screen__icon-inner {
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.main-screen__logo-img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}
+
+.main-screen__question-info {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  max-width: 427px;
+}
+
+.main-screen__section-label {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  line-height: 22px;
+  letter-spacing: 0;
+}
+
+.main-screen__question-number {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--color-white);
+  line-height: 28px;
+  letter-spacing: 0;
+}
+
+.main-screen__question-title {
+  font-family: var(--font-heading);
+  font-size: 36px;
+  font-weight: 400;
+  color: var(--color-white);
+  margin: 0;
+  line-height: 52.5px;
+  letter-spacing: 0;
+}
+
+/* Right Panel */
+.main-screen__right {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  padding: 80px 40px 40px 40px;
+}
+
+/* Hide tablet question info on desktop */
+.main-screen__tablet-question-info {
+  display: none;
+}
+
+.main-screen__tablet-section-label {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: #8a8e99;
+  line-height: 20px;
+}
+
+.main-screen__tablet-question-number {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 400;
+  color: #1e1e1e;
+  line-height: 24px;
+}
+
+.main-screen__tablet-question-title {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 400;
+  color: #1e1e1e;
+  margin: 0;
+  line-height: 30px;
+  letter-spacing: -0.5px;
+}
+
+.main-screen__image-container {
+  width: 100%;
+  margin-bottom: 24px;
+  aspect-ratio: 16 / 9;
+  max-height: 280px;
+  overflow: hidden;
+}
+
+.main-screen__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+}
+
+.main-screen__info-section {
+  flex: 1;
+  min-height: 150px;
+  overflow-x: auto;
+}
+
+.main-screen__slide-content {
+  padding: 0;
+}
+
+.main-screen__slide-title {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 400;
+  color: #1e1e1e;
+  margin: 0 0 16px 0;
+  line-height: 28px;
+  letter-spacing: 0;
+}
+
+.main-screen__slide-text {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  color: #8a8e99;
+  line-height: 22px;
+  letter-spacing: 0;
+  margin: 0 0 16px 0;
+}
+
+/* How it Works slide */
+.main-screen__slide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.main-screen__layers-label {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  color: #8a8e99;
+  line-height: 22px;
+  letter-spacing: 0;
+}
+
+.main-screen__progress-label {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  color: #8a8e99;
+  line-height: 22px;
+  letter-spacing: 0;
+}
+
+.main-screen__checkpoints {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.main-screen__checkpoint-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.main-screen__checkpoint-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.main-screen__checkpoint-check {
+  color: #22c55e;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.main-screen__checkpoint-link--completed {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.main-screen__checkpoint-link {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  background: linear-gradient(180deg, #b432a3 25%, #ae59cf 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 22px;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+.main-screen__checkpoint-desc {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  color: #8a8e99;
+  line-height: 22px;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+/* Team slide */
+.main-screen__team-avatars {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-top: 27px;
+  flex-wrap: wrap;
+}
+
+.main-screen__team-avatar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.main-screen__team-avatar-wrapper:hover {
+  transform: scale(1.05);
+}
+
+/* Current user avatar styling */
+.main-screen__team-avatar-wrapper--current-user .main-screen__team-avatar-img {
+  border: 3px solid #5C40FB;
+  box-shadow: 0px 4px 12px rgba(92, 64, 251, 0.3);
+}
+
+.main-screen__team-avatar-wrapper--current-user .main-screen__team-avatar-name {
+  color: #5C40FB;
+  font-weight: 600;
+}
+
+.main-screen__team-avatar-wrapper--has-recording .main-screen__team-avatar-img {
+  border: 2px solid #B432A3;
+}
+
+.main-screen__team-avatar-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+}
+
+.main-screen__team-avatar-wrapper:hover .main-screen__team-avatar-img {
+  box-shadow: 0px 6px 12px rgba(180, 50, 163, 0.3);
+}
+
+.main-screen__team-avatar-play {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.main-screen__team-avatar-wrapper:hover .main-screen__team-avatar-play {
+  opacity: 1;
+}
+
+.main-screen__team-avatar-name {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  color: #4B5563;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 70px;
+}
+
+/* Add Member Button */
+.main-screen__add-member-btn {
+  cursor: pointer;
+}
+
+.main-screen__add-member-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(92, 64, 251, 0.1) 0%, rgba(180, 50, 163, 0.1) 100%);
+  border: 2px dashed #B432A3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #B432A3;
+  transition: all 0.2s ease;
+}
+
+.main-screen__add-member-btn:hover .main-screen__add-member-icon {
+  background: linear-gradient(180deg, rgba(92, 64, 251, 0.2) 0%, rgba(180, 50, 163, 0.2) 100%);
+  border-color: #5C40FB;
+  color: #5C40FB;
+  transform: scale(1.05);
+}
+
+.main-screen__view-recordings-link {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  color: #B432A3;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 16px;
+  transition: color 0.2s ease;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.main-screen__view-recordings-link:hover {
+  color: #5C40FB;
+  text-decoration: underline;
+}
+
+/* Legacy styles - kept for backward compatibility */
+.main-screen__team-lead-avatar {
+  width: 82px;
+  height: 82px;
+  border-radius: 90px;
+  overflow: hidden;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border: 0 solid white;
+}
+
+.main-screen__team-lead-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.main-screen__team-placeholder {
+  width: 90px;
+  height: 90px;
+  background: linear-gradient(180deg, rgba(92, 110, 133, 0.1) 0%, rgba(92, 110, 133, 0.2) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-screen__team-placeholder .material-icons {
+  font-size: 24px;
+  color: #5c6e85;
+}
+
+/* Carousel indicator */
+.main-screen__carousel-indicator {
+  display: flex;
+  justify-content: flex-start;
+  padding: 16px 0;
+}
+
+/* Action button */
+.main-screen__action {
+  padding-top: 0;
+}
+
+.main-screen__arrow {
+  margin-left: var(--space-sm);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .main-screen__right {
+    padding: var(--space-lg);
+  }
+  
+  .main-screen__question-title {
+    font-size: 28px;
+    line-height: 40px;
+  }
+  
+  .main-screen__icon-outer {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Hide left panel content on tablet */
+  .main-screen__left {
+    display: none;
+  }
+  
+  /* Right panel becomes full layout */
+  .main-screen__right {
+    padding: 0;
+    height: auto;
+    min-height: calc(100vh - 66px);
+  }
+  
+  /* Image at top, full width */
+  .main-screen__image-container {
+    margin-bottom: 0;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+  
+  .main-screen__image {
+    max-height: none;
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Question info section - show on tablet in right panel */
+  .main-screen__tablet-question-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px 20px;
+    gap: 8px;
+  }
+  
+  .main-screen__info-section {
+    padding: 0 20px;
+    min-height: auto;
+  }
+  
+  .main-screen__slide-title {
+    font-size: 20px;
+    line-height: 26px;
+  }
+  
+  .main-screen__slide-text {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  
+  .main-screen__carousel-indicator {
+    justify-content: center;
+    padding: 20px 0;
+  }
+  
+  .main-screen__action {
+    padding: 0 20px 24px 20px;
+  }
+  
+  .main-screen__team-avatars {
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .main-screen__team-avatar-wrapper {
+    gap: 4px;
+  }
+
+  .main-screen__team-avatar-img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .main-screen__team-avatar-play {
+    top: 17px;
+  }
+
+  .main-screen__team-avatar-name {
+    font-size: 11px;
+    max-width: 55px;
+  }
+
+  .main-screen__add-member-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .main-screen__add-member-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .main-screen__view-recordings-link {
+    display: block;
+    text-align: center;
+    margin-top: 12px;
+  }
+
+  .main-screen__team-lead-avatar {
+    width: 60px;
+    height: 60px;
+  }
+
+  .main-screen__team-placeholder {
+    width: 50px;
+    height: 50px;
+  }
+}

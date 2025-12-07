@@ -1,0 +1,87 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  font-family: var(--font-body);
+  font-weight: 800;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Sizes */
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.btn-md {
+  padding: 12px 32px;
+  font-size: 16px;
+  line-height: 24px;
+  height: auto;
+}
+
+.btn-lg {
+  padding: 16px 48px;
+  font-size: 18px;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+/* Primary Button */
+.btn-primary {
+  background: linear-gradient(180deg, #b432a3 25%, #ae59cf 100%);
+  color: var(--color-white);
+  border: none;
+  box-shadow: 
+    0px 2px 1px 0px rgba(11, 19, 36, 0.1),
+    0px 4px 12px 0px rgba(11, 19, 36, 0.32),
+    inset 0px 4px 3px 0px rgba(255, 255, 255, 0.6);
+  text-shadow: 0px 4px 12px rgba(11, 19, 36, 0.24);
+}
+
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background: var(--color-white);
+  color: var(--color-black);
+  border: 4px solid rgba(7, 17, 46, 0.06);
+  box-shadow: 
+    0px 1px 1px -3px rgba(11, 19, 36, 0.1),
+    0px 6px 12px -3px rgba(11, 19, 36, 0.12);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  border-color: rgba(7, 17, 46, 0.1);
+  background: var(--color-gray-50);
+}
+
+/* Ghost Button */
+.btn-ghost {
+  background: transparent;
+  color: var(--color-white);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
