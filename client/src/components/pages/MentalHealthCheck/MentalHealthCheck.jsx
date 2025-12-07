@@ -13,6 +13,7 @@ const MentalHealthCheck = ({
   question,
   progress = { current: 1, total: 4 },
   onContinue,
+  onBack,
   onBackHome,
   variant = 'doing-great' // 'doing-great', 'almost-there', 'take-break'
 }) => {
